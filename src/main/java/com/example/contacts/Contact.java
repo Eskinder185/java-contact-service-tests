@@ -1,4 +1,4 @@
-package contact;
+package com.example.contacts;
 
 public class Contact {
     private final String contactId;  
@@ -8,23 +8,23 @@ public class Contact {
     private String address;
 
     public Contact(String contactId, String firstName, String lastName, String phone, String address) {
-        if (contactId == null || contactId.length() > 10) {
+        if (contactId == null || contactId.trim().isEmpty() || contactId.length() > 10) {
             throw new IllegalArgumentException("Invalid contact ID");
         }
 
-        if (firstName == null || firstName.length() > 10) {
+        if (firstName == null || firstName.trim().isEmpty() || firstName.length() > 10) {
             throw new IllegalArgumentException("Invalid first name");
         }
 
-        if (lastName == null || lastName.length() > 10) {
+        if (lastName == null || lastName.trim().isEmpty() || lastName.length() > 10) {
             throw new IllegalArgumentException("Invalid last name");
         }
 
-        if (phone == null || phone.length() != 10) {
+        if (phone == null || phone.length() != 10 || !phone.matches("\\d{10}")) {
             throw new IllegalArgumentException("Invalid phone number");
         }
 
-        if (address == null || address.length() > 30) {
+        if (address == null || address.trim().isEmpty() || address.length() > 30) {
             throw new IllegalArgumentException("Invalid address");
         }
 
@@ -44,7 +44,7 @@ public class Contact {
     }
 
     public void setFirstName(String firstName) {
-        if (firstName == null || firstName.length() > 10) {
+        if (firstName == null || firstName.trim().isEmpty() || firstName.length() > 10) {
             throw new IllegalArgumentException("Invalid first name");
         }
         this.firstName = firstName;
@@ -55,7 +55,7 @@ public class Contact {
     }
 
     public void setLastName(String lastName) {
-        if (lastName == null || lastName.length() > 10) {
+        if (lastName == null || lastName.trim().isEmpty() || lastName.length() > 10) {
             throw new IllegalArgumentException("Invalid last name");
         }
         this.lastName = lastName;
@@ -66,7 +66,7 @@ public class Contact {
     }
 
     public void setPhone(String phone) {
-        if (phone == null || phone.length() != 10) {
+        if (phone == null || phone.length() != 10 || !phone.matches("\\d{10}")) {
             throw new IllegalArgumentException("Invalid phone number");
         }
         this.phone = phone;
@@ -77,7 +77,7 @@ public class Contact {
     }
 
     public void setAddress(String address) {
-        if (address == null || address.length() > 30) {
+        if (address == null || address.trim().isEmpty() || address.length() > 30) {
             throw new IllegalArgumentException("Invalid address");
         }
         this.address = address;

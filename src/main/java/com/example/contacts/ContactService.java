@@ -1,7 +1,6 @@
-package contact;
+package com.example.contacts;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ContactService {
     private Map<String, Contact> contacts = new HashMap<>();
@@ -33,5 +32,9 @@ public class ContactService {
 
     public Contact getContact(String contactId) {
         return contacts.get(contactId);
+    }
+
+    public Collection<Contact> getAll() {
+        return new ArrayList<>(contacts.values());
     }
 }

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <title>Contact Service • QA Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* ========= THEME ========= */
+    :root {
+      --bg: #f7f9fc;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;   /* blue = "code" */
+      --accent-2: #14b8a6; /* teal = "quality/test" */
+      --success: #16a34a;
+      --danger: #dc2626;
+      --shadow: 0 6px 20px rgba(2, 6, 23, 0.08);
+      --radius: 12px;
+    }
+    [data-theme="dark"] {
+      --bg: #0b1020;
+      --panel: #11172a;
+      --text: #e6eefc;
+      --muted: #9fb0cc;
+      --border: #1f2a44;
+      --accent: #60a5fa;
+      --accent-2: #2dd4bf;
+      --success: #22c55e;
+      --danger: #f87171;
+      --shadow: 0 10px 30px rgba(10, 20, 40, 0.55);
+    }
+
+    /* ========= LAYOUT ========= */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+      background: radial-gradient(1200px 800px at 20% -10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%),
+                  radial-gradient(1200px 800px at 120% 10%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    .container { max-width: 1080px; margin: 24px auto 56px; padding: 0 20px; }
+    header {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, transparent), color-mix(in srgb, var(--accent-2) 22%, transparent));
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      max-width: 1080px; margin: 0 auto; padding: 22px 20px;
+      display: flex; align-items: center; gap: 16px; justify-content: space-between;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      background:
+        conic-gradient(from 220deg, var(--accent), var(--accent-2), var(--accent));
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.25), var(--shadow);
+    }
+    .title { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: .2px; }
+    .subtitle { margin: 2px 0 0; color: #eafff8; opacity: .9; font-size: 13px; }
+
+    .toolbar { display: flex; align-items: center; gap: 10px; }
+    .chip {
+      border: 1px solid color-mix(in srgb, var(--panel) 60%, var(--border));
+      background: color-mix(in srgb, var(--panel) 85%, transparent);
+      color: var(--text);
+      font-size: 12px; padding: 6px 10px; border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+    .btn {
+      appearance: none; border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+      background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 88%, transparent), color-mix(in srgb, var(--panel) 70%, transparent));
+      color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer;
+      transition: transform .06s ease, box-shadow .2s ease, border-color .2s ease;
+      box-shadow: var(--shadow);
+    }
+    .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .btn.accent {
+      color: white; background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 80%, #000));
+      border-color: color-mix(in srgb, var(--accent) 60%, #000);
+    }
+    .btn.accent:hover { box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 40%, transparent); }
+
+    /* ========= CARDS / FORMS ========= */
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+    @media (max-width: 900px){ .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 16px; box-shadow: var(--shadow);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 15px; color: var(--muted); }
+    label { display: block; font-size: 13px; color: var(--muted); margin: 8px 0 4px; }
+    input, select {
+      width: 100%; padding: 10px 12px; border-radius: 10px;
+      border: 1px solid var(--border); background: color-mix(in srgb, var(--panel) 96%, transparent);
+      color: var(--text); outline: none; transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+
+    .row-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    table {
+      width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; overflow: hidden; border-radius: 10px; border: 1px solid var(--border);
+    }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    th { text-align: left; background: color-mix(in srgb, var(--panel) 85%, var(--bg)); color: var(--muted); }
+    tr:hover td { background: color-mix(in srgb, var(--panel) 90%, transparent); }
+
+    pre {
+      background: color-mix(in srgb, var(--panel) 90%, transparent);
+      border: 1px solid var(--border); border-radius: 10px; padding: 12px; overflow: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+    }
+
+    .badge-ok { color: white; background: linear-gradient(180deg, var(--success), color-mix(in srgb, var(--success) 75%, #000)); padding: 2px 8px; border-radius: 999px; font-size: 11px; }
+    .badge-err{ color: white; background: linear-gradient(180deg, var(--danger),  color-mix(in srgb, var(--danger) 75%, #000));  padding: 2px 8px; border-radius: 999px; font-size: 11px; }
+
+    .footer { margin-top: 20px; color: var(--muted); font-size: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1 class="title">Contact Service • QA Demo</h1>
+          <p class="subtitle">Java 17 • JUnit 5 • Coverage • Minimal API</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <span class="chip">Validation • Uniqueness • Immutability</span>
+        <button class="btn" id="themeBtn" type="button" title="Toggle theme">Toggle Theme</button>
+        <a class="btn accent" href="/health" target="_blank" rel="noopener">Health</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section class="card">
+        <h3>Create (POST /contacts)</h3>
+        <label>ID <input id="c_id" maxlength="10" placeholder="e.g., A1"></label>
+        <label>First <input id="c_first" maxlength="10" placeholder="Jane"></label>
+        <label>Last <input id="c_last" maxlength="10" placeholder="Doe"></label>
+        <label>Phone (10) <input id="c_phone" maxlength="10" placeholder="4045551234"></label>
+        <label>Address <input id="c_address" maxlength="30" placeholder="1 Main St"></label>
+        <div class="row-btns">
+          <button class="btn accent" onclick="createContact()">Create</button>
+          <button class="btn" onclick="clearCreate()">Clear</button>
+        </div>
+        <p class="hint">Rules: ID ≤10 chars (unique), names ≤10, phone = 10 digits, address ≤30.</p>
+      </section>
+
+      <section class="card">
+        <h3>Get / List (GET)</h3>
+        <label>Get by ID <input id="g_id" maxlength="10" placeholder="A1"></label>
+        <div class="row-btns">
+          <button class="btn accent" onclick="getContact()">Fetch</button>
+          <button class="btn" onclick="listContacts()">List All</button>
+        </div>
+        <div id="list"></div>
+      </section>
+
+      <section class="card">
+        <h3>Update (PATCH /contacts?id=...)</h3>
+        <label>ID <input id="u_id" maxlength="10" placeholder="existing id"></label>
+        <label>First <input id="u_first" maxlength="10" placeholder="(optional)"></label>
+        <label>Last <input id="u_last" maxlength="10" placeholder="(optional)"></label>
+        <label>Phone <input id="u_phone" maxlength="10" placeholder="(optional)"></label>
+        <label>Address <input id="u_address" maxlength="30" placeholder="(optional)"></label>
+        <div class="row-btns">
+          <button class="btn accent" onclick="updateContact()">Apply</button>
+          <button class="btn" onclick="clearUpdate()">Clear</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Delete (DELETE /contacts?id=...)</h3>
+        <label>ID <input id="d_id" maxlength="10" placeholder="A1"></label>
+        <div class="row-btns">
+          <button class="btn" style="border-color: var(--danger); color: var(--danger);" onclick="deleteContact()">Delete</button>
+        </div>
+
+        <h3 style="margin-top:16px;">Raw Response</h3>
+        <pre id="out">Ready…</pre>
+      </section>
+    </div>
+
+    <p class="footer">Tip: Press <strong>F12 → Network</strong> and filter <em>Fetch/XHR</em> to watch your API calls. Ignore <code>favicon.ico</code> requests.</p>
+  </main>
+
+  <script>
+    const BASE = location.origin.includes('localhost') ? location.origin : "http://localhost:8080";
+
+    // ===== Theme toggle (remembers choice) =====
+    const stored = localStorage.getItem('theme');
+    if (stored) document.documentElement.setAttribute('data-theme', stored);
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'auto';
+      const next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : 'dark');
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // ===== CRUD actions =====
+    async function createContact() {
+      const payload = {
+        contactId: v('c_id'),
+        firstName:  v('c_first'),
+        lastName:   v('c_last'),
+        phone:      v('c_phone'),
+        address:    v('c_address')
+      };
+      send('POST', '/contacts', payload);
+    }
+    async function getContact() {
+      const id = v('g_id');
+      send('GET', '/contacts?id=' + encodeURIComponent(id));
+    }
+    async function listContacts() {
+      const res = await fetch(BASE + '/contacts');
+      const text = await res.text();
+      show('GET /contacts → ' + badge(res.ok) + ' ' + res.status + '\n\n' + pretty(text));
+      try { renderTable(JSON.parse(text)); } catch {}
+    }
+    async function updateContact() {
+      const id = v('u_id');
+      const payload = {};
+      if (v('u_first'))  payload.firstName = v('u_first');
+      if (v('u_last'))   payload.lastName  = v('u_last');
+      if (v('u_phone'))  payload.phone     = v('u_phone');
+      if (v('u_address'))payload.address   = v('u_address');
+      send('PATCH', '/contacts?id=' + encodeURIComponent(id), payload);
+    }
+    async function deleteContact() {
+      const id = v('d_id');
+      try {
+        const res = await fetch(BASE + '/contacts?id=' + encodeURIComponent(id), { method: 'DELETE' });
+        show('DELETE /contacts?id=' + id + ' → ' + badge(res.ok) + ' ' + res.status + '\n\n' + (await res.text()));
+        listContacts();
+      } catch (e) { show('Error: ' + e.message); }
+    }
+
+    async function send(method, path, body) {
+      try {
+        const res = await fetch(BASE + path, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: body ? JSON.stringify(body) : undefined
+        });
+        const text = await res.text();
+        show(method + ' ' + path + ' → ' + badge(res.ok) + ' ' + res.status + '\n\n' + pretty(text));
+        if (method !== 'GET') listContacts();
+      } catch (e) {
+        show('Error: ' + e.message);
+      }
+    }
+
+    // ===== UI helpers =====
+    function renderTable(items) {
+      const el = document.getElementById('list');
+      if (!Array.isArray(items) || items.length === 0) { el.innerHTML = '<em>No contacts</em>'; return; }
+      const rows = items.map(c => `
+        <tr>
+          <td>${esc(c.contactId)}</td>
+          <td>${esc(c.firstName)}</td>
+          <td>${esc(c.lastName)}</td>
+          <td>${esc(c.phone)}</td>
+          <td>${esc(c.address)}</td>
+        </tr>`).join('');
+      el.innerHTML = `
+        <table>
+          <thead><tr><th>ID</th><th>First</th><th>Last</th><th>Phone</th><th>Address</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+    }
+    function v(id){ return document.getElementById(id).value.trim(); }
+    function show(msg){ document.getElementById('out').textContent = msg; }
+    function pretty(t){ try { return JSON.stringify(JSON.parse(t), null, 2) } catch { return t } }
+    function esc(s){ return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])) }
+    function badge(ok){ return ok ? '✅' : '❌'; }
+
+    // quick clear helpers
+    function clearCreate(){ ['c_id','c_first','c_last','c_phone','c_address'].forEach(id => document.getElementById(id).value = ''); }
+    function clearUpdate(){ ['u_id','u_first','u_last','u_phone','u_address'].forEach(id => document.getElementById(id).value = ''); }
+
+    // Auto-load list on open
+    listContacts().catch(()=>{});
+  </script>
+</body>
+</html>

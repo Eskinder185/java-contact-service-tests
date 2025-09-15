@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: Contact Service (future REST contract)
+  version: 1.0.0
+paths:
+  /contacts:
+    post:
+      summary: Create a contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInput'
+      responses:
+        '201': { description: Created }
+        '400': { description: Validation error }
+  /contacts/{id}:
+    get:
+      summary: Get a contact by id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404': { description: Not found }
+    patch:
+      summary: Update a contact (id immutable)
+      responses:
+        '200': { description: Updated }
+        '400': { description: Validation error }
+        '404': { description: Not found }
+    delete:
+      summary: Delete a contact
+      responses:
+        '204': { description: Deleted }
+        '404': { description: Not found }
+components:
+  schemas:
+    Contact:
+      type: object
+      properties:
+        contactId: { type: string, maxLength: 10 }
+        firstName: { type: string, maxLength: 10 }
+        lastName:  { type: string, maxLength: 10 }
+        phone:     { type: string, pattern: '^[0-9]{10}$' }
+        address:   { type: string, maxLength: 30 }
+      required: [contactId, firstName, lastName, phone, address]
+    ContactInput:
+      allOf: [{ $ref: '#/components/schemas/Contact' }]
