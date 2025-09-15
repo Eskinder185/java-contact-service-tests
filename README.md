@@ -1,10 +1,6 @@
 Contact Service • QA Demo
 
 
-
-
-
-
 A tiny Java contact service with strict validation, JUnit 5 tests, 100% coverage, and a demo web page.
 
 Run it
