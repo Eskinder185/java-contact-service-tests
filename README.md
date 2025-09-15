@@ -1,3 +1,5 @@
+#Contact Service • QA Demo (Java 17)
+
 A small, production-style contact module with strict validation, 100% line & branch coverage (JaCoCo), and a themed demo web UI that exercises a minimal HTTP API.
 
 Why it’s useful: Clean data gate (unique IDs, phone rules), easy to reuse in forms or onboarding flows.
