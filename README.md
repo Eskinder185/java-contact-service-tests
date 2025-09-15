@@ -29,3 +29,4 @@ mvn -q clean test
 - Optional REST API (Spring Boot) using the openapi.yaml
 - Mutation testing (PIT) for test strength
 - Parameterized + property-based test
+<img width="1405" height="1101" alt="image" src="https://github.com/user-attachments/assets/8166c305-0b22-4db0-8167-74227b9a7244" />
