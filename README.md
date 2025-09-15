@@ -28,4 +28,4 @@ mvn -q clean test
 ## Roadmap
 - Optional REST API (Spring Boot) using the openapi.yaml
 - Mutation testing (PIT) for test strength
-- Parameterized + property-based tests
+- Parameterized + property-based test
