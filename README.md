@@ -1,55 +1,56 @@
-Contact Service • QA Demo
+A small, production-style contact module with strict validation, 100% line & branch coverage (JaCoCo), and a themed demo web UI that exercises a minimal HTTP API.
 
+Why it’s useful: Clean data gate (unique IDs, phone rules), easy to reuse in forms or onboarding flows.
 
-A tiny Java contact service with strict validation, JUnit 5 tests, 100% coverage, and a demo web page.
+What it shows: Testing discipline, validation, separation of concerns, simple service design, and a minimal API.
 
-Run it
-# tests + coverage
+Features
+
+ Domain + Service: Contact, ContactService (CRUD with constraints)
+
+ Tests: JUnit 5 unit tests (happy paths + edge cases)
+
+ Coverage: JaCoCo report (100% line/branch in this build)
+
+ Minimal API + Web UI: Health + Create/List/Get/Update/Delete
+
+ Light/Dark theme: nice 8-second “see it in action” clip material
+
+Quick Start
+Prereqs
+
+Java 17+
+
+Maven
+
+Run tests + coverage
 mvn -q clean test
-# open report
-# Windows: start target/site/jacoco/index.html
-# macOS:  open target/site/jacoco/index.html
-# Linux:  xdg-open target/site/jacoco/index.html
+# Open coverage report:
+# Windows:
+start target/site/jacoco/index.html
+# macOS:
+open target/site/jacoco/index.html
+# Linux:
+xdg-open target/site/jacoco/index.html
 
-# start server (default: 8080)
+Run the demo server
+# Default: port 8080
 mvn -q -DskipTests compile
 mvn -q exec:java
-# then open http://localhost:8080/
 
-Try it (quick API)
-# create
-curl -s -X POST http://localhost:8080/contacts \
- -H "Content-Type: application/json" \
- -d '{"contactId":"A1","firstName":"Jane","lastName":"Doe","phone":"4045551234","address":"1 Main St"}'
-
-# get one
-curl -s "http://localhost:8080/contacts?id=A1"
-
-# list all
-curl -s "http://localhost:8080/contacts"
-
-What it shows
-
-Clean validation: unique ID, phone = 10 digits, length limits
-
-Unit tests (JUnit 5) with JaCoCo 100%
-
-Minimal HTTP API + themed demo page (light/dark)
-
-Validation rules
-
-contactId: required, ≤10 chars, unique, immutable
-
-firstName, lastName: required, ≤10 chars
-
-phone: required, exactly 10 digits
-
-address: required, ≤30 chars
-
-Structure
-demo/ (web UI)  •  src/main/... (service + server)  •  src/test/... (tests)
+# Optional: custom port
+mvn -q exec:java -DPORT=8090
 
 
-Health: GET /health → {"ok":"up"}
-Demo page: open http://localhost:8080/
+Open the UI:
+
+http://localhost:8080/
+ (or /demo/index.html)
+
+Health check:
+
+http://localhost:8080/health
+ → {"ok":"up"}
+
+ 
 <img width="1405" height="1101" alt="image" src="https://github.com/user-attachments/assets/8166c305-0b22-4db0-8167-74227b9a7244" />
