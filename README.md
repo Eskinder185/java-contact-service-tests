@@ -25,20 +25,20 @@ Maven
 
 Run tests + coverage
 mvn -q clean test
-# Open coverage report:
-# Windows:
+Open coverage report:
+ Windows:
 start target/site/jacoco/index.html
-# macOS:
+ macOS:
 open target/site/jacoco/index.html
-# Linux:
+ Linux:
 xdg-open target/site/jacoco/index.html
 
 Run the demo server
-# Default: port 8080
+ Default: port 8080
 mvn -q -DskipTests compile
 mvn -q exec:java
 
-# Optional: custom port
+ Optional: custom port
 mvn -q exec:java -DPORT=8090
 
 
